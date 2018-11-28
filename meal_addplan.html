@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+    <title>Food - Add Food</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+
+  <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  .foodimage{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  #myInput {
+    background-image: url('/css/searchicon.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+  }
+
+  #myTable {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    font-size: 18px;
+  }
+
+  #myTable th, #myTable td {
+    text-align: left;
+    padding: 12px;
+  }
+
+  #myTable tr {
+    border-bottom: 1px solid #ddd;
+  }
+
+  #myTable tr.header, #myTable tr:hover {
+    background-color: #f1f1f1;
+  }
+  td a {
+    display:block;
+    width:100%;
+  }
+  </style>
+
+
+  <style>
+
+  /* The Modal (background) */
+  .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+  }
+
+  /* The Close Button */
+  .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+  }
+
+  tr:nth-child(even) {
+      background-color: #dddddd;
+  }
+  </style>
+
+
+
+
+  <script>
+      window.onload = function() {
+      $.ajaxSetup({ cache:false });
+      var arrayB = [];
+      var arrayL = [];
+      var arrayD = [];
+
+      var isB = 0;
+      var isL = 0;
+      var isD = 0;
+      var Bcount =0;
+      var Lcount =0;
+      var Dcount =0;
+
+      var Bcalories = 0;
+      var Lcalories = 0;
+      var Dcalories = 0;
+      var Ocalories = 0;
+
+      var dataPoints = [];
+      var dataPoints2 = [];
+      var dataPoints3 = [];
+      var dataPoints4 = [];
+
+      var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        title: {
+          text: "Calories: 0"
+        },
+        axisY: {
+          title: "Grams",
+          titleFontSize: 24
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,### Grams",
+          dataPoints: dataPoints
+        }]
+      });
+
+      var chart2 = new CanvasJS.Chart("chartContainer2", {
+        animationEnabled: true,
+        title: {
+          text: "Calories: 0"
+        },
+        axisY: {
+          title: "Grams",
+          titleFontSize: 24
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,### Grams",
+          dataPoints: dataPoints2
+        }]
+      });
+
+      var chart3 = new CanvasJS.Chart("chartContainer3", {
+        animationEnabled: true,
+        title: {
+          text: "Calories: 0"
+        },
+        axisY: {
+          title: "Grams",
+          titleFontSize: 24
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,### Grams",
+          dataPoints: dataPoints3
+        }]
+      });
+
+      var chart4 = new CanvasJS.Chart("chartContainer4", {
+        animationEnabled: true,
+        title: {
+          text: "Overall Calories: 0"
+        },
+        axisY: {
+          title: "Grams",
+          titleFontSize: 24
+        },
+        data: [{
+          type: "column",
+          yValueFormatString: "#,### Grams",
+          dataPoints: dataPoints4
+        }]
+      });
+
+
+      var currentfood;
+
+      google.charts.load('current', {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label ', 'Value'],
+          ['Protein', 6,],
+          ['Fats', 2],
+          ['Carbs', 5]
+        ]);
+
+        var data1 = google.visualization.arrayToDataTable([
+          ['Label ', 'Value'],
+          ['Protein', 3],
+          ['Fats', 2],
+          ['Carbs', 9]
+        ]);
+
+        var data2 = google.visualization.arrayToDataTable([
+          ['Label ', 'Value'],
+          ['Protein', 2],
+          ['Fats', 4],
+          ['Carbs', 8]
+        ]);
+
+        var options = {
+          title: 'Macronutrients Percentage',
+          is3D:true,
+          backgroundColor: { fill:'transparent' }
+        };
+        
+
+
+        var charts = new google.visualization.PieChart(document.getElementById('piechart'));
+        var charts1 = new google.visualization.PieChart(document.getElementById('piechart1'));
+        var charts2 = new google.visualization.PieChart(document.getElementById('piechart2'));
+        var charts3 = new google.visualization.PieChart(document.getElementById('piechart3'));
+        var charts4 = new google.visualization.PieChart(document.getElementById('piechart4'));
+
+        charts4.draw(data, options);
+        charts3.draw(data, options);
+        charts1.draw(data1, options);
+        charts2.draw(data2, options);
+        charts.draw(data, options);
+      }
+
+
+      function addData(data) {
+        for (var i = 0; i < data.length; i++) {
+
+          if (Object.keys(data[i]) == "Rice"){
+            for (var a = 0; a < 3; a++){
+              dataPoints.push({
+                label: data[i]["Rice"][a].nutrition,
+                y: 0, color:"LightSeaGreen"
+              });
+            }
+          }
+        }
+        chart.render();
+      }
+
+      function addData2(data) {
+        for (var i = 0; i < data.length; i++) {
+          if (Object.keys(data[i]) == "Rice"){
+            for (var a = 0; a < 3; a++){
+              dataPoints2.push({
+                label: data[i]["Rice"][a].nutrition,
+                y: 0, color:"LightSeaGreen"
+              });
+            }
+          }
+          
+        }
+        chart2.render();
+      }
+
+      function addData3(data) {
+        for (var i = 0; i < data.length; i++) {
+          if (Object.keys(data[i]) == "Rice"){
+            for (var a = 0; a < 3; a++){
+              dataPoints3.push({
+                label: data[i]["Rice"][a].nutrition,
+                y: 0, color:"LightSeaGreen"
+              });
+            }
+          }
+          
+        }
+        chart3.render();
+      }
+
+      function addData4(data) {
+        for (var i = 0; i < data.length; i++) {
+          if (Object.keys(data[i]) == "Rice"){
+            for (var a = 0; a < 3; a++){
+              dataPoints4.push({
+                label: data[i]["Rice"][a].nutrition,
+                y: 0, color:"LightSeaGreen"
+              });
+            }
+          }
+          
+        }
+        chart4.render();
+      }
+      function editData(data) {
+          for (var i = 0; i < data.length; i++) {
+            if (Object.keys(data[i]) == currentfood){
+              for (var a = 0; a < 3; a++){
+                console.log(dataPoints[a].indexLabel);
+                dataPoints[a].y += data[i][currentfood][a].units;
+                dataPoints[a].indexLabel = (dataPoints[a].y).toString()+ "g";
+                dataPoints[a].color = "LightSeaGreen";
+                if (dataPoints[0].y > 50){
+                  dataPoints[0].color = "Red";
+                }
+                if (dataPoints[1].y > 70){
+                  dataPoints[1].color = "Red";
+                }
+                if (dataPoints[2].y > 400){
+                  dataPoints[2].color = "Red";
+                }
+            }
+            Bcalories += data[i][currentfood][3].units;
+            chart.options.title.text = "Calories: "+ Bcalories;
+          }
+        }
+        chart.render();
+      }
+
+      function editData2(data) {
+          for (var i = 0; i < data.length; i++) {
+            if (Object.keys(data[i]) == currentfood){
+              for (var a = 0; a < 3; a++){
+                dataPoints2[a].y += data[i][currentfood][a].units;
+                dataPoints2[a].indexLabel = (dataPoints2[a].y).toString()+ "g";
+                dataPoints2[a].color = "LightSeaGreen";
+                if (dataPoints2[0].y > 50){
+                  dataPoints2[0].color = "Red";
+                }
+                if (dataPoints2[1].y > 70){
+                  dataPoints2[1].color = "Red";
+                }
+                if (dataPoints2[2].y > 400){
+                  dataPoints2[2].color = "Red";
+                }
+            }
+            Lcalories += data[i][currentfood][3].units;
+            chart2.options.title.text = "Calories: "+ Lcalories;
+          }
+        }
+        chart2.render();
+      }
+
+      function editData3(data) {
+          for (var i = 0; i < data.length; i++) {
+            if (Object.keys(data[i]) == currentfood){
+              for (var a = 0; a < 3; a++){
+                dataPoints3[a].y += data[i][currentfood][a].units;
+                dataPoints3[a].indexLabel = (dataPoints3[a].y).toString()+ "g";
+                dataPoints3[a].color = "LightSeaGreen";
+                if (dataPoints3[0].y > 50){
+                  dataPoints3[0].color = "Red";
+                }
+                if (dataPoints3[1].y > 70){
+                  dataPoints3[1].color = "Red";
+                }
+                if (dataPoints3[2].y > 200){
+                  dataPoints3[2].color = "Red";
+                }
+            }
+            Dcalories += data[i][currentfood][3].units;
+            chart3.options.title.text = "Calories: "+ Dcalories;
+          }
+        }
+        chart3.render();
+      }
+
+      function editData4(data) {
+          for (var i = 0; i < data.length; i++) {
+            if (Object.keys(data[i]) == currentfood){
+              for (var a = 0; a < 3; a++){
+                dataPoints4[a].y = 0;
+                dataPoints4[a].y += dataPoints[a].y;
+                dataPoints4[a].y += dataPoints2[a].y;
+                dataPoints4[a].y += dataPoints3[a].y;
+
+                dataPoints4[a].color = "LightSeaGreen";
+
+                dataPoints4[a].indexLabel = (dataPoints4[a].y).toString()+ "g";
+                if (dataPoints4[0].y > 120){
+                  dataPoints4[0].color = "Red";
+                }
+                if (dataPoints4[1].y > 70){
+                  dataPoints4[1].color = "Red";
+                }
+                if (dataPoints4[2].y > 225){
+                  dataPoints4[2].color = "Red";
+                }
+            }
+            Ocalories = Dcalories + Lcalories + Bcalories;
+            chart4.options.title.text = "Overall Calories: "+ Ocalories;
+            if (Ocalories > 2000 || Ocalories < 1500){
+              chart4.options.title.fontColor = "Red";
+            }
+            else{
+              chart4.options.title.fontColor = "LightSeaGreen";
+            }
+          }
+        }
+        chart4.render();
+      }
+
+
+      $.getJSON("food.json", addData);
+
+      $.getJSON("food.json", addData2);
+      $.getJSON("food.json", addData3);
+      $.getJSON("food.json", addData4);
+
+
+      // Get the modal
+      var modal = document.getElementById('myModal');
+
+      // Get the button that opens the modal
+      var btnB = document.getElementById("myBtnB");
+
+      var btnL = document.getElementById("myBtnL");
+
+      var btnD = document.getElementById("myBtnD");
+
+
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      var food = document.getElementsByClassName("foodname")[0];
+
+      // When the user clicks the button, open the modal 
+      btnB.onclick = function() {
+          isB = 1;
+          modal.style.display = "block";
+      }
+
+      btnL.onclick = function() {
+          isL = 1;
+          modal.style.display = "block";
+      }
+
+      btnD.onclick = function() {
+          isD = 1;
+          modal.style.display = "block";
+      }
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          isB = 0;
+          isL = 0;
+          isD = 0;
+          modal.style.display = "none";
+      }
+
+      $(document).on('click', '.remove_all', function(e){
+        Bcount = 0;
+        Lcount = 0;
+        Dcount = 0;
+        Bcalories = 0;
+        Lcalories = 0;
+        Dcalories = 0;
+        chart.options.title.text = "Calories: "+ Bcalories;
+        chart2.options.title.text = "Calories: "+ Lcalories;
+        chart3.options.title.text = "Calories: "+ Dcalories;
+        var r = confirm("Confirm reset all meal plan?");
+        if (r == true){
+          for ( var a = 0;  a < 3 ; a++){
+            dataPoints[a].y =0;
+            dataPoints2[a].y =0;
+            dataPoints3[a].y =0;
+          }
+          setTimeout(function (){
+
+            $.getJSON("food.json", editData4);
+
+            }, 100);
+
+          chart.render();
+          chart2.render();
+          chart3.render();
+          $('.clos1').parent().text("");
+          $('.clos1').remove();
+          $('.clos2').parent().text("");
+          $('.clos2').remove();
+          $('.clos3').parent().text("");
+          $('.clos3').remove();
+        }
+      });
+
+
+
+      $(document).on('click', '.remove_breakfast', function(e){ 
+        Bcount = 0;
+        Bcalories = 0;
+        chart.options.title.text = "Calories: "+ Bcalories;
+        for ( var a = 0;  a < 3 ; a++){
+          dataPoints[a].y =0;
+        }
+        setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+        chart.render();
+        console.log($(this).parent().text());
+        $('.clos1').parent().text("");
+        $('.clos1').remove();
+      });
+
+      $(document).on('click', '.remove_lunch', function(e){ 
+        Lcount = 0;
+        Lcalories = 0;
+        chart2.options.title.text = "Calories: "+ Lcalories;
+        for ( var a = 0;  a < 3 ; a++){
+          dataPoints2[a].y =0;
+        }
+        setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+        chart2.render();
+        $('.clos2').parent().text("");
+        $('.clos2').remove();
+      });
+
+
+
+      $(document).on('click', '.remove_dinner', function(e){ 
+        Dcount = 0;
+        Dcalories = 0;
+        chart3.options.title.text = "Calories: "+ Dcalories;
+        for ( var a = 0;  a < 3 ; a++){
+          dataPoints3[a].y =0;
+        }
+        setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+        chart3.render();
+        $('.clos3').parent().text("");
+        $('.clos3').remove();
+      });
+
+      $(document).on('click', '.save_button', function(e){ 
+        var theleft = (screen.width/2)- (400/2);
+        var thetop = (screen.top/2) - (100/2);
+        var win = window.open("about:blank", null, "width=400,height=100,top="+thetop+",left="+theleft);
+        var doc = win.document;
+        doc.open("text/html");
+        doc.write("Saved Successfully!");
+        doc.close();
+      });
+
+      $('.foodname').click(function(e){
+        currentfood= $(e.target).text();
+        if (isB == 1){
+
+          $.getJSON("food.json", editData);
+          setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+          arrayB.push(currentfood);
+          Bcount += 1;
+          $('#add_breakfast').append("<div class='clos1'>",Bcount,". ",currentfood,"  ", "</div>");
+          isB = 0;
+        }
+
+        if (isL == 1){
+          $.getJSON("food.json", editData2);
+          setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+          arrayL.push(currentfood);
+          Lcount += 1;
+          $('#add_lunch').append("<div class='clos2'>",Lcount,". ",currentfood,"  ", "</div>");
+          isL=0;
+        }
+
+        if (isD == 1){
+          $.getJSON("food.json", editData3);
+          setTimeout(function (){
+
+          $.getJSON("food.json", editData4);
+
+          }, 100);
+          arrayD.push(currentfood);
+          Dcount += 1;
+          $('#add_dinner').append("<div class='clos3'>",Dcount,". ",currentfood,"  ", "</div>");
+          isD = 0;
+        }
+          modal.style.display = "none";
+      });
+
+      
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              isB = 0;
+              isL = 0;
+              isD = 0;
+              modal.style.display = "none";
+          }
+
+    }
+
+    }
+      </script>
+
+
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <a href="index.html"><img src="picture/fat.png" alt="Home" width="134px" height="104px" border="0"></a>
+      <a class="navbar-brand mr-1" href="index.html"></a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-warning" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <!--<li class="nav-item dropdown no-arrow mx-1">-->
+        <!--  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+        <!--    <i class="fas fa-bell fa-fw"></i>-->
+        <!--    <span class="badge badge-danger">9+</span>-->
+        <!--  </a>-->
+        <!--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">-->
+        <!--    <a class="dropdown-item" href="#">Action</a>-->
+        <!--    <a class="dropdown-item" href="#">Another action</a>-->
+        <!--    <div class="dropdown-divider"></div>-->
+        <!--    <a class="dropdown-item" href="#">Something else here</a>-->
+        <!--  </div>-->
+        <!--</li>-->
+        <!--<li class="nav-item dropdown no-arrow mx-1">-->
+        <!--  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+        <!--    <i class="fas fa-envelope fa-fw"></i>-->
+        <!--    <span class="badge badge-danger">7</span>-->
+        <!--  </a>-->
+        <!--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">-->
+        <!--    <a class="dropdown-item" href="#">Action</a>-->
+        <!--    <a class="dropdown-item" href="#">Another action</a>-->
+        <!--    <div class="dropdown-divider"></div>-->
+        <!--    <a class="dropdown-item" href="#">Something else here</a>-->
+        <!--  </div>-->
+        <!--</li>-->
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="myprofile.html">My Profile</a>
+            <a class="dropdown-item" href="settings.html">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="login.html" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">
+            <i class="fas fa-home"></i>
+            <span style="color:		#FFD700">Home</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-utensils"></i> 
+            <span style="color:	#FFD700">My Meals</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a  class="dropdown-item" href="meal_overview.html">            
+            <i class="fas fa-chart-bar"></i> 
+            <front style="color:	#FFD700">Overview</front></a>
+            <a class="dropdown-item" href="meal_addplan.html"> 
+            <i class="fas fa-pencil-alt"></i>
+            <front style="color:	#FFD700">Meal Plan</front></a>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fab fa-apple"></i>
+            <span style="color:	#FFD700">Food</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="food_nutritionalfacts.html">
+              <i class="fas fa-clipboard-list"></i>
+              <front style="color:	#FFD700">Nutritional Facts</front></a>
+            <a class="dropdown-item" href="food_addfood.html">
+              <i class="fas fa-plus-square"></i>
+              <front style="color:	#FFD700">Add Food</front></a>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-calculator"></i>
+            <span style="color:	#FFD700">Calculator</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="calculator_bmiwhat.html">
+              <i class="fas fa-chart-area"></i>
+             <front style="color:	#FFD700"> BMI</front></a>
+            <a class="dropdown-item" href="calculator_calories.html">
+              <i class="fas fa-chart-bar"></i>
+             <front style="color:	#FFD700"> Calories Intake</front></a>
+          </div>
+        </li>        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="forum.html">
+            <i class="fas fa-users"></i>
+            <span style="color:	#FFD700">Forum</span></a>
+        </li>
+        <!--<li class="nav-item">-->
+        <!--  <a class="nav-link" href="tables.html">-->
+        <!--    <i class="fas fa-fw fa-table"></i>-->
+        <!--    <span>Tables</span></a>-->
+        <!--</li>-->
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#">Food</a>
+            </li>
+            <li class="breadcrumb-item active">Add Food</li>
+          </ol>
+
+        </div>
+
+
+        <!-- Insert the body content here! -->
+
+        <div style="text-align: center;float:left;width: 30%;height: 35%;padding-top: 15px;border-style: solid;border-radius: 20px;border-color: orange;margin-left: 32px">
+          <h1 style="display: inline-block;width: 50%">Breakfast</h1>
+          <div align="center" style="padding-left: 20px;font-size : 13px;" id="add_breakfast"></div>
+          <img style="width:7%;height:10%"  src="image/orange_arrow.gif">
+          <button style="font-size : 13px;" id="myBtnB" >&#10010; Add meal</button>
+          <button style="clear:left;border-radius: 50px;" class='remove_breakfast'> Reset </button>
+        </div>
+        <div style="text-align: center;float:left;width: 30%;height: 35%;padding-top: 20px;border-style: solid;border-radius: 20px;border-color: orange;margin-left: 32px">  
+          <h1 align="center">Lunch</h1>
+          <div align="center" style="padding-left: 20px;font-size : 13px;" id="add_lunch"></div>
+          <img style="width:7%;height:10%"  src="image/orange_arrow.gif">
+          <button style="font-size : 13px;" id="myBtnL" >&#10010; Add meal</button>
+          <button style="clear:left;border-radius: 50px;" class='remove_lunch'> Reset </button>
+        </div>
+        <div style="text-align: center;float:left;width: 30%;height: 35%;padding-top: 20px;border-style: solid;border-radius: 20px;border-color: orange;margin-left: 32px">  
+          <h1 align="center">Dinner</h1>
+        <div align="center" style="padding-left: 20px;font-size : 13px;" id="add_dinner"></div>
+          <img style="width:7%;height:10%"  src="image/orange_arrow.gif">
+          <button style="font-size : 13px;" id="myBtnD" >&#10010; Add meal</button>
+          <button style="clear:left;border-radius: 50px;" class='remove_dinner'> Reset </button>
+          </div>
+
+
+        <div style="float:left;width: 30%;height: 50%;margin-left: 20px;margin-top: 20px;margin-bottom: 30px">
+          <div id="chartContainer" style="height: 100%;"></div>
+        </div>
+        <div style="float:left;width: 30%;height: 50%;margin-left: 30px;margin-top: 20px;">
+                <div id="chartContainer2" style="height: 100%;"></div>
+        </div>
+
+        <div style="float:left;width: 30%;height: 50%;margin-left: 30px;margin-top: 20px;">  
+              <div id="chartContainer3" style="height: 100%;"></div>
+        </div>
+
+        <div style="float:left;width: 90%;height: 90%;border-style: solid;border-radius: 20px;border-color: orange; margin-left: 5%">  
+        <div id="chartContainer4" style="height: 90%; padding-top: 20px"></div>
+        </div>
+        <div style="clear:both;"></div>
+        <div style = "padding-left: 60%">
+          <button onclick="location.href='index.html';" class="save_button" style="width:43%;height:30px;margin-top:20px;display:inline-block;border-radius: 20px;border-color: orange;">Save</button>
+
+          <button class="remove_all" style="width:43%;height:30px;margin-top:20px;border-radius: 20px;border-color: orange;">Reset All</button>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Select your food.." title="Type in a name">
+
+            <table id="myTable">
+              <tr class="header">
+                <th style="width:60%;">Food</th>
+                <th style="width:40%;">Nutritional Value</th>
+              </tr>
+            <tr>
+              <td>
+                <div style="text-align: center;"><button style="background:none;border:none;" id="getfood" class="foodname">Ba Chor Mee</button></div>
+                <img class="foodimage" src="image/bachormee.jpg">
+              </td>
+              <td>
+                 <div id="piechart"></div>
+              </td>
+            </tr>
+            <tr>
+              <td><div style="text-align: center;"><button style="background:none;border:none;" id="getfood" class="foodname">Hokkien Mee</button></div>
+                <img class="foodimage" src="image/hokkienmee.jpg">
+              </td>
+              <td><div id="piechart1" style="height: 100%;"></div></td>
+            </tr>
+            <tr>
+              <td><div style="text-align: center;"><button style="background:none;border:none;" id="getfood" class="foodname">Chicken Rice</button></div>
+                <img class="foodimage" src="image/chickenrice.jpg">
+              </td>
+              <td><div id="piechart2" style="height: 100%;"></div></td>
+            </tr>
+            <tr>
+              <td><div style="text-align: center;"><button style="background:none;border:none;" id="getfood" class="foodname">Wanton Noodle</button></div>
+                <img class="foodimage" src="image/wanton.jpg">
+              </td>
+              <td><div id="piechart3" style="height: 100%;"></div></td>
+            </tr>
+            <tr>
+              <td><div style="text-align: center;"><button style="background:none;border:none;" id="getfood" class="foodname">Fishball Noodle</button></div>
+                <img class="foodimage" src="image/fishball.jpg">
+              </td>
+              <td><div id="piechart4" style="height: 100%;"></div></td>
+            </tr>
+          </table>
+
+          </div>
+
+        </div>
+      </div>
+     
+
+
+
+
+     <!-- script for chart -->
+        <script src="jquery.canvasjs.min.js"></script>
+        <script src="canvasjs.min.js"></script>
+
+        
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+
+
+  </body>
+
+</html>

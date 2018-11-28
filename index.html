@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin - Dashboard</title>
+
+    <!-- Bootstrap core CSS-->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Page level plugin CSS-->
+    <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+    <a href="index.html"><img src="picture/fat.png" alt="Home" width="134px" height="104px" border="0"></a>
+      <a class="navbar-brand mr-1" href="index.html"></a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navbar Search -->
+      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-warning" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Navbar -->
+      <ul class="navbar-nav ml-auto ml-md-0">
+        <!--<li class="nav-item dropdown no-arrow mx-1">-->
+        <!--  <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+        <!--    <i class="fas fa-bell fa-fw"></i>-->
+        <!--    <span class="badge badge-danger">9+</span>-->
+        <!--  </a>-->
+        <!--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">-->
+        <!--    <a class="dropdown-item" href="#">Action</a>-->
+        <!--    <a class="dropdown-item" href="#">Another action</a>-->
+        <!--    <div class="dropdown-divider"></div>-->
+        <!--    <a class="dropdown-item" href="#">Something else here</a>-->
+        <!--  </div>-->
+        <!--</li>-->
+        <!--<li class="nav-item dropdown no-arrow mx-1">-->
+        <!--  <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+        <!--    <i class="fas fa-envelope fa-fw"></i>-->
+        <!--    <span class="badge badge-danger">7</span>-->
+        <!--  </a>-->
+        <!--  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">-->
+        <!--    <a class="dropdown-item" href="#">Action</a>-->
+        <!--    <a class="dropdown-item" href="#">Another action</a>-->
+        <!--    <div class="dropdown-divider"></div>-->
+        <!--    <a class="dropdown-item" href="#">Something else here</a>-->
+        <!--  </div>-->
+        <!--</li>-->
+        <li class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-fw"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="myprofile.html">My Profile</a>
+            <a class="dropdown-item" href="settings.html">Settings</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="login.html" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          </div>
+        </li>
+      </ul>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">
+            <i class="fas fa-home"></i>
+            <span style="color:   #FFD700">Home</span>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-utensils"></i> 
+            <span style="color: #FFD700">My Meals</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a  class="dropdown-item" href="meal_overview.html">            
+            <i class="fas fa-chart-bar"></i> 
+            <front style="color:  #FFD700">Overview</front></a>
+            <a class="dropdown-item" href="meal_addplan.html"> 
+            <i class="fas fa-pencil-alt"></i>
+            <front style="color:  #FFD700">Meal Plan</front></a>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fab fa-apple"></i>
+            <span style="color: #FFD700">Food</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="food_nutritionalfacts.html">
+              <i class="fas fa-clipboard-list"></i>
+              <front style="color:  #FFD700">Nutritional Facts</front></a>
+            <a class="dropdown-item" href="food_addfood.html">
+              <i class="fas fa-plus-square"></i>
+              <front style="color:  #FFD700">Add Food</front></a>
+          </div>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-calculator"></i>
+            <span style="color: #FFD700">Calculator</span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+            <a class="dropdown-item" href="calculator_bmiwhat.html">
+              <i class="fas fa-chart-area"></i>
+             <front style="color: #FFD700"> BMI</front></a>
+            <a class="dropdown-item" href="calculator_calories.html">
+              <i class="fas fa-chart-bar"></i>
+             <front style="color: #FFD700"> Calories Intake</front></a>
+          </div>
+        </li>        
+        
+        <li class="nav-item">
+          <a class="nav-link" href="forum.html">
+            <i class="fas fa-users"></i>
+            <span style="color: #FFD700">Forum</span></a>
+        </li>
+        <!--<li class="nav-item">-->
+        <!--  <a class="nav-link" href="tables.html">-->
+        <!--    <i class="fas fa-fw fa-table"></i>-->
+        <!--    <span>Tables</span></a>-->
+        <!--</li>-->
+      </ul>
+
+      <div id="content-wrapper">
+
+        <div class="container-fluid">
+
+          <!-- Breadcrumbs-->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="index.html" style="color:  #FFD700"><b>Dashboard</b></a>
+            </li>
+            <li class="breadcrumb-item active">My Overview</li>
+          </ol>
+          
+          
+          
+          <!--overview-->
+         <div id="body">
+           
+            <div class="card-group">
+              <div class="card">
+
+                <div class="card-body" style ="text-align: center">
+                 <h5 class="card-title"><a href="meal_overview.html" > <font color="#6495ED" >My Meals</font></a></h5>
+                  <p class="card-text">
+  <!------------------addd calories_chart google chart ------------------------>
+                          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                          <script type="text/javascript">
+                            google.charts.load('current', {packages: ['corechart', 'line']});
+                            google.charts.setOnLoadCallback(drawBasic);
+                            var chart;
+                            var options;
+                            var data;
+                            function drawBasic() {
+                    
+                                data = new google.visualization.DataTable();
+                                data.addColumn('number', 'Date');
+                                data.addColumn('number', 'Calories');
+                    
+                                data.addRows([
+                                           [1,1620],[2,1650],[3,1580],[4,1860],[5,1750],[6,1700],[7,1970], [8,1850],
+                                ]);
+                                data.addRows([]);
+                    
+                                options = {
+                                  title: 'My Meal Overview',
+                                hAxis: {
+                                  title: 'Date',
+                                  ticks: [1,2,3,4,5,6,7,8,9,10],
+                                },
+                                curveType: 'function',
+                                vAxis: {
+                                  title: 'Calories'
+                                },
+                                pointSize: 10,
+                                pointShape: 'circle',
+                                backgroundColor: '#f1f8e9',
+                                crosshair: { trigger: 'both' },
+                                colors: ['#6495ED', '#007329'],
+                                
+                        //         trendlines: {
+                        //             0: {
+                        //               color: 'black',
+                        //               lineWidth: 10,
+                        //               opacity: 0.4,
+                        //               type: 'exponential',
+                        //               labelInLegend: 'Progression Line',
+                        //               visibleInLegend: true,
+                        //               pointSize: 0,
+                        //               pointShape: 'square'
+                                      
+                        //             }
+                          
+                        // }
+                                };
+                    
+                                chart = new google.visualization.LineChart(document.getElementById('calories_chart'));
+                    
+                                chart.draw(data, options);
+                    
+                    
+                              }
+                    
+                              function weight() {
+                              // user inputs
+                              var weight = Number(document.getElementById("weight").value);
+                              //var date = Number(document.getElementById("date").value);
+                    
+                              data.addRows([
+                                [9,weight]
+                                ]);
+                    
+                              chart.draw(data, options);
+                    
+                          }
+                          </script>
+                          <div id="calories_chart" style="width: 100%; height: 300px"></div>
+ <!------------------ calories_chart google chart ------------------------>
+                    
+                  </p>
+                  <p class="card-text"><small class="text-muted" >Last updated Yesterday</small></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body" style ="text-align: center">
+                  <h5 class="card-title"><a href="weight.html" > <font color="orange" >My Weight</font></a></h5>
+                  <p class="card-text">
+                    
+      <!------------------ weight google chart ------------------------------------------------------------->
+                          <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                          <script type="text/javascript">
+                            google.charts.load('current', {packages: ['corechart', 'line']});
+                            google.charts.setOnLoadCallback(drawBasic);
+                            var chart;
+                            var options;
+                            var data;
+                            function drawBasic() {
+                    
+                                data = new google.visualization.DataTable();
+                                data.addColumn('number', 'Week');
+                                data.addColumn('number', 'Weight');
+                    
+                                data.addRows([
+                                           [1,78.6],[2,78.8],[3,78.9],[4,78.9],[5,79],[6,78.8],[7,78.7], [8,78.6],
+                                ]);
+                                data.addRows([]);
+                    
+                                options = {
+                                  title: 'Weight Overview',
+                                hAxis: {
+                                  title: 'Week',
+                                  ticks: [1,2,3,4,5,6,7,8,9,10],
+                                },
+                                curveType: 'function',
+                                vAxis: {
+                                  title: 'Weight'
+                                },
+                                          pointSize: 10,
+                                pointShape: 'circle',
+                                backgroundColor: '#f1f8e9',
+                                crosshair: { trigger: 'both' },
+                                colors: ['orange', '#007329'],
+                                
+                                trendlines: {
+                                    0: {
+                                      color: 'black',
+                                      lineWidth: 10,
+                                      opacity: 0.4,
+                                      type: 'exponential',
+                                      labelInLegend: 'Progression Line',
+                                      visibleInLegend: true,
+                                                pointSize: 0,
+                              pointShape: 'square',
+                              crosshair: { trigger: 'focus' },
+                                      
+                                    }
+                          
+                        }
+                                };
+                    
+                                chart = new google.visualization.LineChart(document.getElementById('weight_chart'));
+                    
+                                chart.draw(data, options);
+                    
+                    
+                              }
+                    
+                              function weight() {
+                              // user inputs
+                              var weight = Number(document.getElementById("weight").value);
+                              //var date = Number(document.getElementById("date").value);
+                    
+                              data.addRows([
+                                [9,weight]
+                                ]);
+                    
+                              chart.draw(data, options);
+                    
+                          }
+                          </script>
+                          <div id="weight_chart" style="width: 100%; height: 300px"></div>
+ <!------------------ weight google chart -------------------------------------------------------------->
+            
+                    
+                    
+                  </p>
+                  <p class="card-text"><small class="text-muted">Last updated 1 Week ago</small></p>
+                </div>
+              </div>
+
+            </div>
+           
+             <div class="card-group">
+              <div class="card">
+
+                <div class="card-body" style ="text-align: center">
+                  <h5 class="card-title"><a href="calculator_bmiwhat.html" > <font color="#FF7F50">My BMI</font></a></h5>
+                  <p class="card-text">
+<!------------------ overallbmi chart ------------------------------------------------------------------->
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                              google.charts.load('current', {packages: ['corechart', 'line']});
+                              google.charts.setOnLoadCallback(drawBasic);
+                              var chart;
+                              var options;
+                              var data;
+                              function drawBasic() {
+                      
+                                  data = new google.visualization.DataTable();
+                                  data.addColumn('number', 'Week');
+                                  data.addColumn('number', 'BMI');
+                      
+                                  data.addRows([
+                                  [1,23],[2,24],[3,24],[4,24],[5,24],[6,24],[7,23], [8,23],
+                                  ]);
+                                  data.addRows([]);
+                      
+                                  options = {
+                                    title: 'BMI Overview',
+                                  hAxis: {
+                                    title: 'Week',
+                                    ticks: [1,2,3,4,5,6,7,8,9,10],
+                                  },
+                      
+                                  vAxis: {
+                                    title: 'BMI'
+                                  },
+                                            pointSize: 10,
+                                  pointShape: 'circle',
+                                  backgroundColor: '#f1f8e9',
+                                  crosshair: { trigger: 'both' },
+                                  colors: ['#FF7F50', '#007329'],
+                                  
+                                  trendlines: {
+                                      0: {
+                                        color: 'black',
+                                        lineWidth: 10,
+                                        opacity: 0.4,
+                                        type: 'exponential',
+                                        labelInLegend: 'Progression Line',
+                                        visibleInLegend: true,
+                                                  pointSize: 0,
+                                pointShape: 'square'
+                                        
+                                      }
+                            
+                          }
+                                  };
+                      
+                                  chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                      
+                                  chart.draw(data, options);
+                      
+                      
+                                }
+                      
+                            </script>
+                            <div id="chart_div" style="width: 100%; height: 300px"></div>
+<!------------------ overallbmi chart ------------------------------------------------------------------>
+                    </p>
+                    
+                    
+            
+            
+            
+            
+                  <p class="card-text"><small class="text-muted">Last updated 1 Week ago</small></p>
+                </div>
+              </div>
+              <div class="card">
+                 <div class="card-body" style ="text-align: center">
+                   <h5 class="card-title"><a href="calculator_calories.html" > <font color="orange" >My Calories</font></a></h5>
+                  <p class="card-text">
+                    
+                    
+     <!------------------ CALORIES chart ------------------------------------------------------------------>               
+                    
+     
+              <div id="chart_div1" style="width:100%; height: 300px " ></div>
+                      <div style="clear: both;"  >
+                        
+             <div style="float:left;width:100%;padding-left:15%">
+                <h4 style="float:left" id="cal">Your Maintenance Calories are: </h4>
+                <h4 style="float:left"> <font color="orange"> <span id="display1"> 2550 kcal</span></font> </h4>
+                 </div>
+                 <div style="float:left;width:100%;padding-left:28%">
+              <div style="float:left;margin-left: 5%;">
+                <button onclick="decreasebutton();" class="thebutton" style="display: none">Lose Weight</button>
+                <button onclick="increasebutton();" class="thebutton" style="display: none">Increase Weight</button>
+              </div>
+        </div>
+         </div>
+            
+      <script>
+        
+    var thecalorie = 2550; 
+    var data1;
+    var options1;
+    var chart1;
+    var curweight = 0;
+
+    var currentnumber = 6;
+    
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart1);
+
+      function drawChart1() {
+        
+
+        options1 = {
+          legend: 'none',
+          curveType: 'function',
+          pointSize: 7,
+          dataOpacity: 0.3,
+           backgroundColor: '#f1f8e9',
+          hAxis: {
+            ticks: [-1.5,-1,-.5,0,.5,1,1.5],
+            format:"#.#kg"
+          }
+        };
+        chart1 = new google.visualization.LineChart(document.getElementById('chart_div1'));
+        
+        $('.thebutton').css('display', '');
+        for (var i = 1; i < 15; i++){
+          if (i == 1){
+              data1 = google.visualization.arrayToDataTable
+                ([['X', 'Y', {'type': 'string', 'role': 'style'}, {'type': 'string', 'role': 'annotation'}],
+                  [weight,(thecalorie - minus + (i*250)),null,null]
+            ]);
+          }
+          else if(i != 7){
+            data1.addRows([
+              [weight,(thecalorie - minus + (i*250)),null,null]
+              ]);
+          }
+          else{
+            data1.addRows([
+              [weight,(thecalorie - minus + (i*250)),'point { size: 18; shape-type: circle; fill-color: #a52714; }',String(Math.ceil(thecalorie))+" kcal"]
+              ]);
+          }
+          weight += 0.25;
+          
+        }
+  
+        chart1.draw(data1, options1);
+        
+        
+        
+      }
+
+    function increasebutton(){
+      data1.setValue(currentnumber,2,null);
+      data1.setValue(currentnumber,3,null);
+      if(currentnumber < 13){
+        currentnumber += 1;
+        curweight += .25;
+        thecalorie += 250;
+        data1.setValue(currentnumber,2,'point { size: 18; shape-type: circle; fill-color: #a52714; }');
+        data1.setValue(currentnumber,3,String(Math.ceil(thecalorie))+" kcal");
+        chart1.draw(data1 , options1);
+        if(data1.getValue(currentnumber,0) > 0){
+          document.getElementById('cal').innerText = "Your Calorie intake to gain "+ curweight +"kg per week: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie)+ " kcal";
+        }
+        else if (data1.getValue(currentnumber,0)< 0){
+          document.getElementById('cal').innerText = "Your Calorie intake to lose "+ Math.abs(curweight) +"kg per week: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie)+ " kcal";
+        }
+        else{
+          document.getElementById('cal').innerText = "Your Maintenance calories are: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie)+ " kcal";
+        }
+      }
+      
+    }
+
+    function decreasebutton(){
+      data1.setValue(currentnumber,2,null);
+      data1.setValue(currentnumber,3,null);
+      if(currentnumber > 0){
+        currentnumber -= 1;
+        curweight -= .25;
+        thecalorie -= 250;
+        data1.setValue(currentnumber,2,'point { size: 18; shape-type: circle; fill-color: #a52714; }');
+        data1.setValue(currentnumber,3,String(Math.ceil(thecalorie))+" kcal");
+        chart1.draw(data1 , options1);
+        if(data1.getValue(currentnumber,0) > 0){
+          document.getElementById('cal').innerText = "Your Calorie intake to gain "+ curweight +"kg per week: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie)+ " kcal";
+        }
+        else if (data1.getValue(currentnumber,0)< 0){
+          document.getElementById('cal').innerText = "Your Calorie intake to lose "+ Math.abs(curweight) +"kg per week: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie) + " kcal";
+        }
+        else{
+          document.getElementById('cal').innerText = "Your Maintenance calories are: ";
+          document.getElementById('display1').innerText = Math.ceil(thecalorie)+ " kcal";
+        }
+      }
+    }
+    var weight = -1.5;
+    var minus = 1250;
+
+    
+      
+     
+        
+        
+      </script>
+                    
+      <!------------------ CALORIES chart ------------------------------------------------------------------>                     
+                  </p>
+                  <!--<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>-->
+                </div>
+              </div>
+
+            </div>
+                 
+         </div>
+           <!--overview-->
+         
+         
+         
+         
+      
+      
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="js/demo/datatables-demo.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
+
+  </body>
+
+</html>

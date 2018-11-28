@@ -1,0 +1,181 @@
+
+
+[
+	{
+	"Rice":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 5
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 12
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 120
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 200
+		  }
+		  
+		]
+	},
+	{
+	"Ba Chor Mee":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 20
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 23
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 57
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 511
+		  }
+		  
+		]
+	},
+	{
+	"Chicken Rice":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 40
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 23
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 76
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 618
+		  }
+		]
+	},
+	{
+	"Wanton Noodle":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 24
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 15
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 70
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 511
+		  }
+		  
+		]
+	},
+	{
+	"Fishball Noodle":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 19
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 8
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 55
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 370
+		  }
+		  
+		]
+	},
+	{
+	"Hokkien Mee":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 19
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 11
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 80
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 510
+		  }
+		  
+		]
+	},
+	{
+	"Maggie Mee":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 20
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 12
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 10
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 217
+		  }
+		  
+		]
+	},
+	{
+	"French Fries":
+		[
+		  {
+			"nutrition": "Protein",
+			"units": 2
+		  },
+		  {
+			"nutrition": "Fats",
+			"units": 11
+		  },
+		  {
+			"nutrition": "Carbs",
+			"units": 23
+		  },
+		  {
+			"nutrition": "Calories",
+			"units": 197
+		  }
+		  
+		]
+	}
+]
+
+	
